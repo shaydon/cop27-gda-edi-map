@@ -9,6 +9,25 @@ import Json.Decode as JD
 import WindowSize exposing (WindowSize)
 
 
+baseMapUrl =
+    "https://umap.openstreetmap.fr/en/map/cop27-global-day-of-action-edinburgh_828539"
+
+
+fitMap : WindowSize -> String
+fitMap { width, height } =
+    baseMapUrl
+        ++ "#"
+        ++ (if width > 1330 then
+                "16/55.9525/-3.1865"
+
+            else if width > 740 then
+                "15/55.9525/-3.1872"
+
+            else
+                "14/55.9528/-3.1871"
+           )
+
+
 main : Program JD.Value Model Msg
 main =
     Browser.element
@@ -53,14 +72,15 @@ subscriptions _ =
 
 
 view : Model -> Html Msg
-view _ =
+view { windowSize } =
     iframe
         [ id "map-frame"
-        , src
-            "https://umap.openstreetmap.fr/en/map/cop27-global-day-of-action-edinburgh_828539"
-        , allow [ "fullscreen", "geolocation *"]
+        , src (fitMap windowSize)
+        , allow [ "fullscreen", "geolocation *" ]
         ]
         []
 
+
 allow : List String -> Attribute msg
-allow features = attribute "allow" (String.join "; " features)
+allow features =
+    attribute "allow" (String.join "; " features)
