@@ -26,8 +26,8 @@ type alias Model =
 init : JD.Value -> ( Model, Cmd Msg )
 init flags =
     case InteropPorts.decodeFlags flags of
-        Err flagsError ->
-            Debug.todo <| JD.errorToString flagsError
+        Err _ ->
+            ( { windowSize = { width = 640, height = 480 } }, Cmd.none )
 
         Ok windowSize ->
             ( { windowSize = windowSize }
