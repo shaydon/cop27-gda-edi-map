@@ -58,5 +58,9 @@ view _ =
         [ id "map-frame"
         , src
             "https://umap.openstreetmap.fr/en/map/cop27-global-day-of-action-edinburgh_828539"
+        , allow [ "fullscreen", "geolocation *"]
         ]
         []
+
+allow : List String -> Attribute msg
+allow features = attribute "allow" (String.join "; " features)
