@@ -9,12 +9,13 @@ import Json.Decode as JD
 import WindowSize exposing (WindowSize)
 
 
+baseMapUrl : String
 baseMapUrl =
     "https://umap.openstreetmap.fr/en/map/cop27-global-day-of-action-edinburgh_828539"
 
 
 fitMap : WindowSize -> String
-fitMap { width, height } =
+fitMap { width } =
     baseMapUrl
         ++ "#"
         ++ (if width > 1330 then
@@ -24,7 +25,7 @@ fitMap { width, height } =
                 "15/55.9525/-3.1872"
 
             else
-                "14/55.9528/-3.1871"
+                "14/55.9495/-3.1871"
            )
 
 
