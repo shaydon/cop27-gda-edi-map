@@ -3,7 +3,7 @@ module Main exposing (main)
 import Browser
 import Browser.Events as Browser
 import Html exposing (..)
-import Html.Attributes
+import Html.Attributes exposing (..)
 import InteropPorts
 import Json.Decode as JD
 import WindowSize exposing (WindowSize)
@@ -53,8 +53,10 @@ subscriptions _ =
 
 
 view : Model -> Html Msg
-view { windowSize } =
-    div []
-        [ p [] [ text ("Width: " ++ String.fromInt windowSize.width) ]
-        , p [] [ text ("Height: " ++ String.fromInt windowSize.height) ]
+view _ =
+    iframe
+        [ id "map-frame"
+        , src
+            "https://umap.openstreetmap.fr/en/map/cop27-global-day-of-action-edinburgh_828539"
         ]
+        []
