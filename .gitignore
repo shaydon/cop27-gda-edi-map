@@ -1,0 +1,6 @@
+dist/
+node_modules/
+elm-stuff/
+src/Main.elm.d.ts
+gen/
+elm.js
