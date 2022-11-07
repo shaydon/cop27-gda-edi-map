@@ -17,10 +17,10 @@ introText =
         Edinburgh!
         """
     , paragraph []
-        [ text """November 12 will see thousands on the streets across regions
-            and nations, demanding Climate Justice in solidarity with the Global
-            Day of Action called by Egyptian groups at the COP27 UN climate
-            talks.
+        [ bold """November 12 """
+        , text """will see thousands on the streets across regions and nations,
+            demanding Climate Justice in solidarity with the Global Day of
+            Action called by Egyptian groups at the COP27 UN climate talks.
             """
         ]
     , paragraph []
