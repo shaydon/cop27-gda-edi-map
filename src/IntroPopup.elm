@@ -99,6 +99,7 @@ view dismissIntroClicked =
                     , scrollbarY
                     , spacing paragraphSpacing
                     , Font.size bodySize
+                    , Font.justify
                     ]
                     introText
                 , Input.button
