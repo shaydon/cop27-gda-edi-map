@@ -38,7 +38,7 @@ introText =
             more about the issues raised at each stop and actions 
             """
         , italic """you """
-        , text "can take. Simply click or tap on the map pins. "
+        , text """can take. Simply click or tap on the map pins. """
         ]
     , paragraph [ Font.bold ]
         [ italic """But please remember: """
@@ -50,6 +50,15 @@ introText =
         [ text """You should also be aware that if you look at this map on your
              phone during the march it will use your mobile data.
              """
+        ]
+    , paragraph [ Font.italic ]
+        [ text """Please email any corrections to """
+        , link [ Font.underline ]
+            { url =
+                "mailto:edinburghclimatecoalition.web@gmail.com?subject=\"GDA map\""
+            , label = text """edinburghclimatecoalition.web@gmail.com"""
+            }
+        , text """ ."""
         ]
     ]
 
