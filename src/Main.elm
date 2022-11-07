@@ -4,8 +4,9 @@ import Browser
 import Browser.Events as Browser
 import Css exposing (..)
 import Html.Styled exposing (..)
-import Html.Styled.Attributes exposing (attribute, css, id, src)
+import Html.Styled.Attributes exposing (attribute, css, src, tabindex)
 import InteropPorts
+import IntroPopup
 import Json.Decode as JD
 import WindowSize exposing (WindowSize)
 
@@ -41,30 +42,41 @@ main =
 
 
 type alias Model =
-    { windowSize : WindowSize }
+    { windowSize : WindowSize
+    , showIntro : Bool
+    }
 
 
 init : JD.Value -> ( Model, Cmd Msg )
 init flags =
-    case InteropPorts.decodeFlags flags of
-        Err _ ->
-            ( { windowSize = { width = 640, height = 480 } }, Cmd.none )
+    ( { windowSize =
+            case InteropPorts.decodeFlags flags of
+                Err _ ->
+                    { width = 640, height = 480 }
 
-        Ok windowSize ->
-            ( { windowSize = windowSize }
-            , Cmd.none
-            )
+                Ok windowSize ->
+                    windowSize
+      , showIntro = True
+      }
+    , Cmd.none
+    )
 
 
 type Msg
     = WindowResized WindowSize
+    | DismissIntroClicked
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case msg of
+    ( case msg of
         WindowResized windowSize ->
-            ( { model | windowSize = windowSize }, Cmd.none )
+            { model | windowSize = windowSize }
+
+        DismissIntroClicked ->
+            { model | showIntro = False }
+    , Cmd.none
+    )
 
 
 subscriptions : Model -> Sub Msg
@@ -74,19 +86,48 @@ subscriptions _ =
 
 
 view : Model -> Html Msg
-view { windowSize } =
-    iframe
-        [ src (fitMap windowSize)
-        , css
-            [ position absolute
-            , width (pct 100)
-            , height (pct 100)
-            , borderStyle none
-            , overflow hidden
+view { windowSize, showIntro } =
+    div []
+        (iframe
+            [ src (fitMap windowSize)
+            , css
+                [ fillWindow
+                , borderStyle none
+                , overflow hidden
+                , if showIntro then
+                    pointerEvents none
+
+                  else
+                    pointerEvents auto
+                ]
+            , tabindex
+                (if showIntro then
+                    -1
+
+                 else
+                    0
+                )
+            , allow [ "fullscreen", "geolocation *" ]
             ]
-        , allow [ "fullscreen", "geolocation *" ]
+            []
+            :: (if showIntro then
+                    [ div [ css [ fillWindow ] ]
+                        [ IntroPopup.view DismissIntroClicked ]
+                    ]
+
+                else
+                    []
+               )
+        )
+
+
+fillWindow : Style
+fillWindow =
+    Css.batch
+        [ position absolute
+        , width (pct 100)
+        , height (pct 100)
         ]
-        []
 
 
 allow : List String -> Attribute msg
