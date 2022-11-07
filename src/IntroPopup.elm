@@ -81,12 +81,18 @@ view dismissIntroClicked =
         (el
             [ width (fill |> maximum 600)
             , height fill
-            , padding defaultWhitespace
             , centerX
+            , clip
             , Border.rounded cornerRadius
-            , Background.color (fromRgb255 white)
+            , Background.image "/stylised-route.jpg"
             ]
-            (column [ width fill, height fill, spacing defaultWhitespace ]
+            (column
+                [ width fill
+                , height fill
+                , padding defaultWhitespace
+                , spacing defaultWhitespace
+                , Background.color (fromRgb255 { white | alpha = 0.95 })
+                ]
                 [ textColumn
                     [ width fill
                     , height fill
