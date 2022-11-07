@@ -2,8 +2,9 @@ module Main exposing (main)
 
 import Browser
 import Browser.Events as Browser
-import Html exposing (..)
-import Html.Attributes exposing (..)
+import Css exposing (..)
+import Html.Styled exposing (..)
+import Html.Styled.Attributes exposing (attribute, css, id, src)
 import InteropPorts
 import Json.Decode as JD
 import WindowSize exposing (WindowSize)
@@ -33,7 +34,7 @@ main : Program JD.Value Model Msg
 main =
     Browser.element
         { init = init
-        , view = view
+        , view = view >> toUnstyled
         , update = update
         , subscriptions = subscriptions
         }
@@ -75,8 +76,14 @@ subscriptions _ =
 view : Model -> Html Msg
 view { windowSize } =
     iframe
-        [ id "map-frame"
-        , src (fitMap windowSize)
+        [ src (fitMap windowSize)
+        , css
+            [ position absolute
+            , width (pct 100)
+            , height (pct 100)
+            , borderStyle none
+            , overflow hidden
+            ]
         , allow [ "fullscreen", "geolocation *" ]
         ]
         []
