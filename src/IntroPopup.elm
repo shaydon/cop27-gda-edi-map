@@ -51,9 +51,9 @@ introText =
              phone during the march it will use your mobile data.
              """
         ]
-    , paragraph [ Font.italic ]
+    , paragraph [ Font.alignLeft, Font.italic ]
         [ text """Please email any corrections to """
-        , link [ Font.underline ]
+        , newTabLink [ Font.underline ]
             { url =
                 "mailto:edinburghclimatecoalition.web@gmail.com?subject=\"GDA map\""
             , label = text """edinburghclimatecoalition.web@gmail.com"""
