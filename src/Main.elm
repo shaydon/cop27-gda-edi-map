@@ -20,14 +20,14 @@ fitMap : WindowSize -> String
 fitMap { width } =
     baseMapUrl
         ++ "#"
-        ++ (if width > 1330 then
-                "16/55.9525/-3.1865"
+        ++ (if width >= 1330 then
+                "16/55.9525/-3.1858"
 
-            else if width > 740 then
+            else if width >= 740 then
                 "15/55.9525/-3.1872"
 
             else
-                "14/55.9485/-3.1871"
+                "14/55.9485/-3.1858"
            )
 
 
